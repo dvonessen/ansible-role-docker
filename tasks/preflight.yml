@@ -1,0 +1,16 @@
+---
+- name: remove os docker packages
+  package:
+    name: "{{ docker_remove_os_docker_packages }}"
+    state: absent
+
+- name: install neccessary os packages
+  package:
+    name: "{{ docker_install_dependency_packages }}"
+    state: present
+
+- name: install module dependencies
+  package:
+    name: "{{ 'python3-apt' if ansible_python_version is version('3', '>=') else 'python-apt' }}"
+    state: present
+  when: ansible_os_family | lower == "debian"

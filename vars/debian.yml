@@ -1,0 +1,25 @@
+---
+docker_remove_os_docker_packages:
+  - docker
+  - docker-engine
+  - docker.io
+  - containerd
+  - runc
+
+docker_install_dependency_packages:
+  - gpg
+  - ca-certificates
+
+docker_client_packages:
+  - docker-ce-cli
+
+docker_daemon_packages:
+  - docker-ce
+  - containerd.io
+
+docker_architecture_mapping:
+  x86_64: amd64
+  aarch64: arm64
+
+docker_compose:
+  package: docker-compose

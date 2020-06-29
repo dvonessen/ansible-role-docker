@@ -1,0 +1,43 @@
+---
+- name: configure systemd
+  block:
+    - name: ensure docker.service.d directory exists
+      file:
+        path: /etc/systemd/system/docker.service.d
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: remove all configuration options from docker systemd file
+      template:
+        src: etc/systemd/system/docker.service.d/override.conf.j2
+        dest: /etc/systemd/system/docker.service.d/override.conf
+        owner: root
+        group: root
+        mode: 0644
+      register: __docker_systemd_daemon
+
+    - name: reload systemd daemon
+      systemd:
+        daemon_reload: yes
+      when: __docker_systemd_daemon.changed | bool
+
+- name: configure docker daemon
+  block:
+    - name: ensure docker configuration directory exist
+      file:
+        path: /etc/docker
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: create docker damon configuration file
+      template:
+        src: etc/docker/daemon.json.j2
+        dest: /etc/docker/daemon.json
+        owner: root
+        group: root
+        mode: 0640
+      notify: restart docker daemon

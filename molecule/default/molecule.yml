@@ -35,4 +35,4 @@ lint: |
   set -e
   yamllint -c .yamllint .
   flake8
-  ansible-lint
+  ansible-lint .

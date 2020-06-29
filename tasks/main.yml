@@ -1,1 +1,68 @@
 ---
+- name: include os dependent variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+        - "{{ ansible_distribution | lower }}{{ ansible_distribution_major_version }}.yml"
+        - "{{ ansible_distribution | lower }}.yml"
+        - "{{ ansible_os_family | lower }}.yml"
+        - main.yml
+      skip: true
+  tags:
+    - docker_all
+    - docker_repository
+    - docker_client
+    - docker_daemon
+    - docker_configure
+
+- name: import preflight.yml
+  import_tasks: preflight.yml
+  become: true
+  tags:
+    - docker_all
+    - docker_repository
+    - docker_client
+    - docker_daemon
+    - docker_configure
+
+- name: import repository.yml
+  import_tasks: repository.yml
+  become: true
+  tags:
+    - docker_all
+    - docker_repository
+
+- name: import client.yml
+  import_tasks: client.yml
+  become: true
+  tags:
+    - docker_all
+    - docker_client
+
+- name: import daemon.yml
+  import_tasks: daemon.yml
+  become: true
+  when: docker_install_daemon | bool
+  tags:
+    - docker_all
+    - docker_daemon
+
+- name: import configure.yml
+  import_tasks: configure.yml
+  become: true
+  when: docker_install_daemon | bool
+  tags:
+    - docker_all
+    - docker_configure
+
+- name: ensure docker daemon is enabled and started
+  service:
+    name: docker
+    state: started
+    enabled: true
+  become: true
+  when: docker_install_daemon | bool
+  tags:
+    - docker_all
+    - docker_daemon
+    - docker_configure

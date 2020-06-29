@@ -1,0 +1,14 @@
+---
+# WORKAROUND delete if containerd.io is installed by default without error
+- name: install containerd.io as a workaround in centos 8
+  package:
+    name: https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.13-3.2.el7.x86_64.rpm
+    state: present
+  when:
+    - ansible_distribution | lower == "centos"
+    - ansible_distribution_major_version | int == 8
+
+- name: install docker-ce daemon
+  package:
+    name: "{{ docker_daemon_packages }}"
+    state: present

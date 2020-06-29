@@ -1,1 +1,27 @@
 ---
+docker_install_daemon: true
+
+# Docker compose
+docker_install_docker_compose: false
+docker_compose_version: 1.26.0
+
+# Daemon defautl configuration
+docker_configuration_options:
+  debug: false
+  max-concurrent-downloads: 5
+  max-concurrent-uploads: 5
+  live-restore: true
+  registry-mirror:
+    - hub.docker.com
+  hosts:
+    - unix://var/run/docker.sock
+  dns: []
+  dns-search: []
+  log-driver: json-file
+  log-level: info
+
+# Daemon extra configuration
+docker_configuration_extra_options:
+  experimental: false
+  registry-mirror:
+    - registry.gitlab.com

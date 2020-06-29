@@ -5,3 +5,6 @@
   debugger: on_failed
   roles:
     - role: ansible-role-docker
+      vars:
+        docker_install_daemon: true
+        docker_install_docker_compose: true
