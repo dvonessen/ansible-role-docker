@@ -3,7 +3,7 @@ docker_install_daemon: true
 
 # Docker compose
 docker_install_docker_compose: false
-docker_compose_version: 1.26.0
+docker_compose_version: 1.26.2
 
 # Daemon defautl configuration
 docker_configuration_options:
