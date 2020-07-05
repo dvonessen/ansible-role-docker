@@ -16,7 +16,7 @@
         executable: pip3
         name: setuptools
         state: present
-      when: ansible_lsb['id'] == Raspbian
+      when: ansible_lsb['id'] == "Raspbian"
 
     - name: install docker-compose
       pip:
