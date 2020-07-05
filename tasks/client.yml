@@ -6,30 +6,15 @@
 
 - name: docker-compose installation
   block:
-    - name: ensure /usr/local/bin/ directory exists
-      file:
-        path: /usr/local/bin
-        state: directory
-        owner: root
-        group: root
-        mode: 0755
+    - name: install python3-pip on system
+      package:
+        name: python3-pip
+        state: present
 
-    - name: download docker-compose
-      get_url:
-        dest: "/usr/local/bin/docker-compose-{{ ansible_system }}-{{ ansible_architecture }}"
-        url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-{{ ansible_system }}-{{ ansible_architecture }}"
-        owner: root
-        group: root
-        # Waiting for https://github.com/ansible/ansible/pull/55293 to be merged
-        # checksum: "sha256:https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-{{ ansible_system }}-{{ ansible_architecture }}.sha256"
-        mode: 0755
-
-    - name: link docker-compose
-      file:
-        src: "/usr/local/bin/docker-compose-{{ ansible_system }}-{{ ansible_architecture }}"
-        dest: /usr/local/bin/docker-compose
-        state: link
-        owner: root
-        group: root
-        mode: 0755
-  when: docker_install_docker_compose | bool
+    - name: install docker-compose
+      pip:
+        name: docker-compose
+        state: present
+        version: "{{ docker_compose_version }}"
+  when:
+    - docker_install_docker_compose | bool
