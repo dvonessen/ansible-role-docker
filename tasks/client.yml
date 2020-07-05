@@ -13,8 +13,16 @@
 
     - name: install docker-compose
       pip:
+        executable: pip3
         name: docker-compose
         state: present
         version: "{{ docker_compose_version }}"
   when:
     - docker_install_docker_compose | bool
+
+- name: install docker python sdk
+  pip:
+    executable: pip3
+    name: docker
+    state: present
+  when: docker_install_docker_sdk | bool

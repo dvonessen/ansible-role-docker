@@ -8,3 +8,4 @@
       vars:
         docker_install_daemon: true
         docker_install_docker_compose: true
+        docker_install_docker_sdk: true

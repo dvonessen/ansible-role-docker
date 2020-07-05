@@ -5,7 +5,9 @@ docker_install_daemon: true
 docker_install_docker_compose: false
 docker_compose_version: 1.26.2
 
-# Daemon defautl configuration
+docker_install_docker_sdk: false
+
+# Daemon default configuration
 docker_configuration_options:
   debug: false
   max-concurrent-downloads: 5
