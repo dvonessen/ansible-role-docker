@@ -15,6 +15,7 @@
       pip:
         executable: pip3
         name: setuptools
+        umask: 0022
         state: present
       when: ansible_lsb['id'] == "Raspbian"
 
@@ -22,6 +23,7 @@
       pip:
         executable: pip3
         name: docker-compose
+        umask: 0022
         state: present
         version: "{{ docker_compose_version }}"
   when:
@@ -31,5 +33,6 @@
   pip:
     executable: pip3
     name: docker
+    umask: 0022
     state: present
   when: docker_install_docker_sdk | bool
