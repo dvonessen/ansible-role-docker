@@ -21,9 +21,3 @@ docker_configuration_options:
   dns-search: []
   log-driver: json-file
   log-level: info
-
-# Daemon extra configuration
-docker_configuration_extra_options:
-  experimental: false
-  registry-mirror:
-    - registry.gitlab.com
