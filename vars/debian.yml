@@ -20,3 +20,7 @@ docker_daemon_packages:
 docker_architecture_mapping:
   x86_64: amd64
   aarch64: armhf
+
+docker_python_package:
+  - python3
+  - python3-pip

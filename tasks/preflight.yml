@@ -3,11 +3,13 @@
   package:
     name: "{{ docker_remove_os_docker_packages }}"
     state: absent
+  when: ansible_os_family | lower != "archlinux"
 
 - name: install neccessary os packages
   package:
     name: "{{ docker_install_dependency_packages }}"
     state: present
+  when: ansible_os_family | lower != "archlinux"
 
 - name: install module dependencies
   package:

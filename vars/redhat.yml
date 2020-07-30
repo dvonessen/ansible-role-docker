@@ -17,3 +17,7 @@ docker_client_packages:
 docker_daemon_packages:
   - docker-ce
   - containerd.io
+
+docker_python_package:
+  - python3
+  - python3-pip

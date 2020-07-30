@@ -1,0 +1,7 @@
+---
+docker_daemon_packages:
+  - docker
+
+docker_python_package:
+  - python
+  - python-pip

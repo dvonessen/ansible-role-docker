@@ -3,36 +3,29 @@
   package:
     name: "{{ docker_client_packages }}"
     state: present
+  when: ansible_os_family | lower != "archlinux"
 
-- name: docker-compose installation
-  block:
-    - name: install python3-pip on system
-      package:
-        name: python3-pip
-        state: present
+- name: install python3-pip on system
+  package:
+    name: "{{ docker_python_package }}"
+    state: present
+  when: (docker_install_docker_compose | bool or docker_install_docker_sdk | bool)
 
-    - name: install python3 setuptools
-      pip:
-        executable: pip3
-        name: setuptools
-        umask: 0022
-        state: present
-      when: ansible_lsb['id'] == "Raspbian"
-
-    - name: install docker-compose
-      pip:
-        executable: pip3
-        name: docker-compose
-        umask: 0022
-        state: present
-        version: "{{ docker_compose_version }}"
+- name: install docker-compose
+  pip:
+    executable: pip3
+    name: docker-compose
+    umask: "0022"
+    state: present
+    version: "{{ docker_compose_version }}"
   when:
     - docker_install_docker_compose | bool
+    - ansible_os_family | lower != "archlinux"
 
 - name: install docker python sdk
   pip:
     executable: pip3
     name: docker
-    umask: 0022
+    umask: "0022"
     state: present
   when: docker_install_docker_sdk | bool

@@ -9,13 +9,16 @@ galaxy_info:
   platforms:
     - name: CentOS
       versions:
-       - 8
+        - 8
     - name: Debian
       versions:
         - 10
     - name: Ubuntu
       versions:
         - 20.04
+    - name: ArchLinux
+      versions:
+        - Any
 
   galaxy_tags: [docker, compose, clients]
 
